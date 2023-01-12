@@ -1,0 +1,188 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {% load staticfiles %}
+        <title>GURU</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{% static 'css/slider.css' %}" type="text/css" media="screen" />
+        <script type="text/javascript" src="{% static 'js/jquery-1.9.0.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.nivo.slider.js' %}"></script>
+        <!----- Scroll top --------->
+        <script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+        <!-----End  Scroll top --------->
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('#slider').nivoSlider();
+            });
+        </script>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="header">  	
+                <!--- Slider --->				
+                <div class="slider">
+                    <div class="slider-wrapper theme-default">
+                        <div id="slider" class="nivoSlider">
+                            <img src="{% static 'images/1.jpg' %}" data-thumb="images/1.jpg" alt="" />
+                            <img src="{% static 'images/4.jpg' %}" data-thumb="images/2.jpg" alt="" />
+                            <img src="{% static 'images/3.jpg' %}" data-thumb="images/3.jpg" alt="" />
+                            <img src="{% static 'images/2.jpg' %}" data-thumb="images/4.jpg" alt="" />
+                        </div>
+                    </div>
+                    <div class="header_desc">
+                        <div class="logo">
+                            <a href="index.html"><img src="{% static 'images/logo.png' %}" alt="" /></a>
+                        </div>							
+                    </div>
+                </div>
+                <!--- End Slider --->
+                <div class="header-bottom">
+                    <div class="menu">
+                        <ul>
+                            <li ><a href="/adminHome/">Home</a></li>
+                            <li > <a href="/department/">Department</a></li>
+                            <li class="active">  <a href="/Course/">Course</a></li>
+
+                            <li> <a href="/Faculty/">Faculty</a></li>
+
+                       
+
+                           <li> <a href="/index/">Logout</a></li>
+
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="main">
+                <div class="content">
+                    <h2></h2>
+                    <div class="section group">
+                        <div class="col_1_of_3 span_1_of_3">
+                            <div class="col span_3_of_3">
+                      
+                           <div class="post-grid">
+                               <div class="contact-form">
+             
+                            <form action="/subaction/">
+                                <table>
+                                    <tr>
+                                        <th>Subject Code</th>
+                                        <td> <input type="text" name="sub_code"required></td>  
+                                    </tr>
+                                    <tr>
+                                        <th>Subject Name</th>
+                                        <td> <input type="text" name="sub_name"required></td>  
+                                    </tr>
+                    
+                                    <tr>
+                                        <th>Course Code</th>
+                                        <td> {% for i in cco %}
+                    
+                                            <input type="text" name="Course_Code" readonly value="{{i.cc}}"/>
+                    {% endfor %}</td>
+                                    </tr>
+                    
+                                    <tr>
+                                        <th>Sem</th>
+                                        <td> 
+                    
+                                            <select name="Sem" required style="width:100%;padding:8px;
+                                            display:block;
+                                            width:98%;
+                                            background:#444;
+                                            border: none;
+                                            outline:none;
+                                            color:#FFF;
+                                            font-size:1em;
+                                            font-family:Arial, Helvetica, sans-serif;
+                                            -webkit-appearance:none;">
+                                            <option value="-1">--Select Sem--</option>
+                                                <option value="1" >1</option> 
+                                                <option value="2" >2</option> 
+                                                <option value="3" >3</option> 
+                                                <option value="4" >4</option> 
+                                                <option value="5" >5</option> 
+                                                <option value="6" >6</option> 
+                    
+                    
+                    
+                                            </select>
+                    
+                                    </tr>
+                    
+                                    <tr>
+                                        <th></th>
+                                        <td> <input type="submit" value="Add" style="width:100%;color:black;height: 30px;background: wheat"></td>  
+                                    </tr>
+                    
+                                </table>
+                    
+                            </form>
+                                      
+                        </div></div></div></div>
+                        <div class="col span_2_of_3">
+                        <div class="grid blog-desc">
+                            <br/><br/>
+        <table border="1" style="text-align: center;width:100%">
+              <tr style="background: #990033">
+                <th>Subject Code</th>
+                <th>Subject Name</th>
+                <th>Course Code</th>
+                <th>sem</th>
+      </tr>
+    
+     {% for i in list %}
+      <tr>
+    
+        <td>{{i.scode}}</td>
+        <td>{{i.sname}}</td>
+        <td>{{i.ccode}}</td>
+        <td>{{i.sem}}</td>
+
+        <td><a style="color:red" href="/delsub?d={{i.scode}}&cc={{i.ccode}}">Delete</a></td>                
+  </tr>
+    
+    {% endfor %}
+    
+    </table>
+                          </div>
+                      </div>	
+    
+                  </div>
+              </div> 
+          </div>  
+          <div class="wrap">
+    
+              <div class="copy_right">
+                  <div class="wrap">
+                      <p> © 2021  All Rights Reseverd </p>
+                  </div>
+              </div>	
+              <!------------ scroll Top ------------>
+              <script type="text/javascript">
+                  $(document).ready(function () {
+                      $().UItoTop({easingType: 'easeOutQuart'});
+                  });
+              </script>
+              <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+              <!------------ End scroll Top ------------>
+          </div>  
+      </body>
+    </html>
+    
+    
+          

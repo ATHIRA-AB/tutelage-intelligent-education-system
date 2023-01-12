@@ -1,0 +1,162 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+    {% load staticfiles %}
+    <title>GURU</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+    <link rel="stylesheet" href="{% static 'css/slider.css' %}" type="text/css" media="screen" />
+    <script type="text/javascript" src="{% static 'js/jquery-1.9.0.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/jquery.nivo.slider.js' %}"></script>
+    <!----- Scroll top --------->
+    <script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+    <!-----End  Scroll top --------->
+    <script type="text/javascript">
+        $(window).load(function () {
+            $('#slider').nivoSlider();
+        });
+    </script>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="header">
+            <!--- Slider --->
+            <div class="slider">
+                <div class="slider-wrapper theme-default">
+                    <div id="slider" class="nivoSlider">
+                        <img src="{% static 'images/1.jpg' %}" data-thumb="images/1.jpg" alt="" />
+                        <img src="{% static 'images/4.jpg' %}" data-thumb="images/2.jpg" alt="" />
+                        <img src="{% static 'images/3.jpg' %}" data-thumb="images/3.jpg" alt="" />
+                        <img src="{% static 'images/2.jpg' %}" data-thumb="images/4.jpg" alt="" />
+                    </div>
+                </div>
+                <div class="header_desc">
+                    <div class="logo">
+                        <a href="index.html"><img src="{% static 'images/logo.png' %}" alt="" /></a>
+                    </div>
+                </div>
+            </div>
+            <!--- End Slider --->
+            <div class="header-bottom">
+                <div class="menu">
+                    <ul>
+                        <li class="active"><a href="/studentHome/">Home</a></li>
+                        <li> <a href="/svtimetable/">Class Schedules</a></li>
+                        <li> <a href="/index/">Logout</a></li>
+
+
+                        <div class="clear"></div>
+                    </ul>
+                </div>
+
+                <div class="clear"></div>
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+        <div class="main">
+            <div class="content">
+                <h2></h2>
+                <div class="section group">
+
+                    <div class="team">
+                        {% for i in list %}
+                        <table border="1" style="text-align: center">
+
+                            <tr>
+                                <th style="background: #990033">Subject</th>
+                                <td>{{i.scode}}</td>
+                            </tr>
+                            <tr>
+
+                                <th style="background: #990033">Description</th>
+                                <td>{{i.descp}}</td>
+
+
+                            </tr>
+                            <tr>
+                                <td colspan="2">
+                                    <video width="320" height="240" onclick="playVid()" id="myVid">
+                                        <source src="/uploads/{{i.path}}" type="video/mp4">
+                                        <source src="/uploads/{{i.path}}" type="video/ogg">
+                                        <source src="/uploads/{{i.path}}" type="video/mpeg">
+                                        Your browser does not support the video tag.
+                                    </video>
+                                    <input type="hidden" name="ttid" id="ttid" value="{{i.ttid}}" />
+                                </td>
+                            </tr>
+
+
+                        </table> {% endfor %}
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="wrap">
+
+        <div class="copy_right">
+            <div class="wrap">
+                <p> © 2021 All Rights Reseverd </p>
+            </div>
+        </div>
+        <!------------ scroll Top ------------>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $().UItoTop({ easingType: 'easeOutQuart' });
+            });
+        </script>
+        <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+        <!------------ End scroll Top ------------>
+    </div>
+</body>
+<script type="text/javascript">
+    var vid = document.getElementById("myVid");
+    function playVid() {
+        vid.play();
+        setTimeout(function () {
+            vid.pause()
+            var cc = confirm("Do u want to continue?")
+            if (cc) {
+                playVid();
+               // vid.play()
+                setTimeout(function () {
+                    vid.pause()
+                    var cc = confirm("Do u want to continue?")
+                    if (cc) {
+                        vid.play()
+                    }
+                    else {
+                        vid.stop()
+
+                    }
+                }, 30000);//60000ms is 1 minute
+            }
+            else {
+                vid.stop()
+
+            }
+        }, 30000);//60000ms is 1 minute
+    }
+    vid.onended = function () {
+
+        var fp = "/attaction?ttid=";
+        var sp = document.getElementById("ttid").value;
+        alert("The class has ended");
+        window.location.href = fp + sp;
+    };
+
+</script>
+
+</html>

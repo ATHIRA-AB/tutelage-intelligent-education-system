@@ -1,0 +1,168 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+    <head>
+        {% load staticfiles %}
+        <title>GURU</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all"/>
+        <link rel="stylesheet" href="{% static 'css/slider.css' %}" type="text/css" media="screen" />
+        <script type="text/javascript" src="{% static 'js/jquery-1.9.0.min.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquery.nivo.slider.js' %}"></script>
+        <!----- Scroll top --------->
+        <script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+        <!-----End  Scroll top --------->
+        <script type="text/javascript">
+            $(window).load(function () {
+                $('#slider').nivoSlider();
+            });
+        </script>
+    </head>
+    <body>
+        <div class="wrap">
+            <div class="header">  	
+                <!--- Slider --->				
+                <div class="slider">
+                    <div class="slider-wrapper theme-default">
+                        <div id="slider" class="nivoSlider">
+                            <img src="{% static 'images/1.jpg' %}" data-thumb="images/1.jpg" alt="" />
+                            <img src="{% static 'images/4.jpg' %}" data-thumb="images/2.jpg" alt="" />
+                            <img src="{% static 'images/3.jpg' %}" data-thumb="images/3.jpg" alt="" />
+                            <img src="{% static 'images/2.jpg' %}" data-thumb="images/4.jpg" alt="" />
+                        </div>
+                    </div>
+                    <div class="header_desc">
+                        <div class="logo">
+                            <a href="index.html"><img src="{% static 'images/logo.png' %}" alt="" /></a>
+                        </div>							
+                    </div>
+                </div>
+                <!--- End Slider --->
+                <div class="header-bottom">
+                    <div class="menu">
+                        <ul>
+                            <li class="active"><a href="/index/">Home</a></li>
+                            <li class="active"><a href="/student/">Student Register</a></li>
+                            <li class="active"><a href="/chatbot/">ChatBot</a></li>
+                            <div class="clear"></div>
+                        </ul>
+                    </div>
+
+                    <div class="clear"></div>
+                </div>
+            </div>
+        </div>
+        <div class="wrap">
+            <div class="main">
+                <div class="content">
+
+                    <div class="content-bottom">
+                        <div class="section group">
+                            <div class="col_1_of_3 span_1_of_3">
+                                <h3>Welcome</h3>
+                                <img src="{% static 'images/welcome.jpg' %}" alt=""/>
+                                <p style="padding-top:10px;">Education is not preparation for life; education is life itself.What makes a child gifted and talented may not always be good grades in school, but a different way of looking at the world and learning.</p>
+                            </div>
+                            <div class="col_1_of_3 span_1_of_3">
+                                 <div class="col span_2_of_3">
+                                <h3>STAFF LOGIN</h3>
+                                <div class="post-grid">
+                                    <div class="contact-form">
+                                <form action="/logaction/" style="color:white">
+                        <table>
+                            <tr>
+                                <th>Username</th>
+                            </tr>
+                            <tr>
+                                <td> <input type="text" name="n" class="textbox" required></td>  
+                            </tr>
+
+                            <tr>
+                                <th>Password</th>
+                            </tr>
+                            <tr>
+                                <td> <input type="password" name="p" style="   padding:8px;
+			display:block;
+			width:98%;
+			background:#444;
+			border: none;
+			outline:none;
+			color:#FFF;
+			font-size:1em;
+			font-family:Arial, Helvetica, sans-serif;
+			-webkit-appearance:none;" required></td>  
+                            </tr>
+                            <tr>
+
+                                <td> <input type="submit" value="LOGIN"  /></td>  
+                            </tr>
+
+                        </table>
+
+                    </form>
+                                    </div>
+                                </div>
+                            </div>	
+                            </div>
+                            <div class="col_1_of_3 span_1_of_3">
+                                <div class="col span_2_of_3">
+                                <h3>STUDENT LOGIN</h3>
+                                <div class="post-grid">
+                                    <div class="contact-form">
+                                    <form action="/slogaction/">
+                                        <table>
+                                            <tr>
+                                                <th style="color:white">Username</th>
+                                            </tr>
+                                            <tr>
+                                                <td> <input type="text" name="n" class="textbox" required></td>  
+                                            </tr>
+                                            <tr>
+                                                <th style="color:white">Password</th>
+                                            </tr>
+                                            <tr>
+                                                <td> <input type="text" name="p" class="textbox" required></td>  
+                                            </tr>
+                                            <tr>
+
+                                                <td><span><input type="submit" value="LOGIN "></span></td>  
+                                            </tr>
+
+                                        </table>
+
+                                    </form>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div> 
+        </div>  
+        <div class="wrap">
+
+            <div class="copy_right">
+                <div class="wrap">
+                    <p> © 2021  All Rights Reseverd </p>
+                </div>
+            </div>	
+            <!------------ scroll Top ------------>
+            <script type="text/javascript">
+                $(document).ready(function () {
+                    $().UItoTop({easingType: 'easeOutQuart'});
+                });
+            </script>
+            <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+            <!------------ End scroll Top ------------>
+        </div>  
+    </body>
+</html>
+

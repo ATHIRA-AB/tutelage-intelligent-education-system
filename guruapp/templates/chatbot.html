@@ -1,0 +1,414 @@
+<!--A Design by W3layouts
+Author: W3layout
+Author URL: http://w3layouts.com
+License: Creative Commons Attribution 3.0 Unported
+License URL: http://creativecommons.org/licenses/by/3.0/
+-->
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  {% load staticfiles %}
+  <title>GURU</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet" type="text/css" media="all" />
+  <link rel="stylesheet" href="{% static 'css/slider.css' %}" type="text/css" media="screen" />
+  <script type="text/javascript" src="{% static 'js/jquery-1.9.0.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery.nivo.slider.js' %}"></script>
+  <!----- Scroll top --------->
+  <script type="text/javascript" src="{% static 'js/move-top.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/easing.js' %}"></script>
+  <!-----End  Scroll top --------->
+  <script type="text/javascript">
+    $(window).load(function () {
+      $('#slider').nivoSlider();
+    });
+  </script>
+  <!-- for mobile screens -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- stylesheets are conveniently separated into components -->
+  <link rel="stylesheet" media="all" href="/static/component/styles/setup.css">
+  <link rel="stylesheet" media="all" href="/static/component/styles/says.css">
+  <link rel="stylesheet" media="all" href="/static/component/styles/reply.css">
+  <link rel="stylesheet" media="all" href="/static/component/styles/typing.css">
+  <link rel="stylesheet" media="all" href="/static/component/styles/input.css">
+  <style>
+    body {
+      background: #dcdde0;
+    }
+
+    .bubble-container {
+      height: 100vh;
+    }
+
+    .bubble-container .input-wrap textarea {
+      margin: 0;
+      width: calc(100% - 30px);
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <div class="header">
+      <!--- Slider --->
+      <div class="slider">
+        <div class="slider-wrapper theme-default">
+          <div id="slider" class="nivoSlider">
+            <img src="{% static 'images/1.jpg' %}" data-thumb="images/1.jpg" alt="" />
+            <img src="{% static 'images/4.jpg' %}" data-thumb="images/2.jpg" alt="" />
+            <img src="{% static 'images/3.jpg' %}" data-thumb="images/3.jpg" alt="" />
+            <img src="{% static 'images/2.jpg' %}" data-thumb="images/4.jpg" alt="" />
+          </div>
+        </div>
+        <div class="header_desc">
+          <div class="logo">
+            <a href="index.html"><img src="{% static 'images/logo.png' %}" alt="" /></a>
+          </div>
+        </div>
+      </div>
+      <!--- End Slider --->
+      <div class="header-bottom">
+        <div class="menu">
+          <ul>
+            <li class="active"><a href="/index/">Home</a></li>
+            <li class="active"><a href="/student/">Student Register</a></li>
+            <li class="active"><a href="/chatbot/">ChatBot</a></li>
+            <div class="clear"></div>
+          </ul>
+        </div>
+
+        <div class="clear"></div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="main">
+      <div class="content">
+
+        <div class="content-bottom">
+          <div class="section group">
+            <div class="col_2_of_3 span_3_of_3">
+              <h3>Chatbot</h3>
+
+              <!-- container element for chat window -->
+              <div id="chat"></div>
+
+              <!-- import the JavaScript file -->
+              <script src="/static/component/Bubbles.js"></script>
+              <script>
+                // initialize by constructing a named function...
+                // ...and add text processing plugin:
+                var chatWindow = new Bubbles(document.getElementById("chat"), "chatWindow", {
+                  // the one that we care about is inputCallbackFn()
+                  // this function returns an object with some data that we can process from user input
+                  // and understand the context of it
+
+                  // this is an example function that matches the text user typed to one of the answer bubbles
+                  // this function does no natural language processing
+                  // this is where you may want to connect this script to NLC backend.
+                  inputCallbackFn: function (o) {
+                    // add error conversation block & recall it if no answer matched
+                    var miss = function () {
+                      chatWindow.talk(
+                        {
+                          "i-dont-get-it": {
+                            says: [
+                              "Sorry, I don't get it 😕. Pls repeat? Or you can just click below 👇"
+                            ],
+                            reply: o.convo[o.standingAnswer].reply
+                          }
+                        },
+                        "i-dont-get-it"
+                      )
+                    }
+
+                    // do this if answer found
+                    var match = function (key) {
+                      setTimeout(function () {
+                        chatWindow.talk(convo, key) // restart current convo from point found in the answer
+                      }, 600)
+                    }
+
+                    // sanitize text for search function
+                    var strip = function (text) {
+                      return text.toLowerCase().replace(/[\s.,\/#!$%\^&\*;:{}=\-_'"`~()]/g, "")
+                    }
+
+                    // search function
+                    var found = false
+                    o.convo[o.standingAnswer].reply.forEach(function (e, i) {
+                      strip(e.question).includes(strip(o.input)) && o.input.length > 0
+                        ? (found = e.answer)
+                        : found ? null : (found = false)
+                    })
+                    found ? match(found) : miss()
+                  }
+                }) // done setting up chat-bubble
+
+                // conversation object defined separately, but just the same as in the
+                // "Basic chat-bubble Example" (1-basics.html)
+                var convo = {
+                  ice: {
+                    says: ["Hi", "My Name is Tutelage. I can get you informations.Which info u need?"],
+                    reply: [
+                      {
+                        question: "MCA Subjects",
+                        answer: "subject"
+                      },
+                      {
+                        question: "MCA Electives",
+                        answer: "elective"
+                      },
+                    ]
+                  },
+                  subject: {
+                    says: ["please select the semester"],
+                    reply: [
+                      {
+                        question: "S1 Subjects",
+                        answer: "s1"
+                      },
+                      {
+                        question: "S2 Subjects",
+                        answer: "s2"
+                      },
+                      {
+                        question: "S3 Subjects",
+                        answer: "s3"
+                      },
+                      {
+                        question: "S4 Subjects",
+                        answer: "s4"
+                      }
+                    ]
+                  },
+                  s1: {
+                    says: ["MCACT101, MCACT102,MCACT103,MCACT104,MCACT105,MCACP106,MCACP107,MCACT108"],
+                    reply: [
+                      {
+                        question: "S1 Subjects",
+                        answer: "s1"
+                      },
+                      {
+                        question: "S2 Subjects",
+                        answer: "s2"
+                      },
+                      {
+                        question: "S3 Subjects",
+                        answer: "s3"
+                      },
+                      {
+                        question: "S4 Subjects",
+                        answer: "s4"
+                      },
+                      {
+                        question: "Start Over",
+                        answer: "ice"
+                      },
+
+                      {
+                        question: "End Chat",
+                        answer: "end"
+                      }
+
+                    ]
+                  },
+                  s2: {
+                    says: ["MCACT201, MCACT202,MCACT203,MCACT204,MCACP205,MCACP206,MCACP 207"],
+                    reply: [
+                      {
+                        question: "S1 Subjects",
+                        answer: "s1"
+                      },
+                      {
+                        question: "S2 Subjects",
+                        answer: "s2"
+                      },
+                      {
+                        question: "S3 Subjects",
+                        answer: "s3"
+                      },
+                      {
+                        question: "S4 Subjects",
+                        answer: "s4"
+                      },
+                      {
+                        question: "Start Over",
+                        answer: "ice"
+                      },
+
+                      {
+                        question: "End Chat",
+                        answer: "end"
+                      }
+
+                    ]
+                  },
+                  s3: {
+                    says: ["MCACT301, MCACT302,MCA303ET,MCA304ET,MCACP305,MCACP306,MCACP307,MCACT308"],
+                    reply: [
+                      {
+                        question: "S1 Subjects",
+                        answer: "s1"
+                      },
+                      {
+                        question: "S2 Subjects",
+                        answer: "s2"
+                      },
+                      {
+                        question: "S3 Subjects",
+                        answer: "s3"
+                      },
+                      {
+                        question: "S4 Subjects",
+                        answer: "s4"
+                      },
+                      {
+                        question: "Start Over",
+                        answer: "ice"
+                      },
+
+                      {
+                        question: "End Chat",
+                        answer: "end"
+                      }
+
+                    ]
+                  },
+                  s4: {
+                    says: ["MCACS401, MCACP402,MCACV403"],
+                    reply: [
+                      {
+                        question: "S1 Subjects",
+                        answer: "s1"
+                      },
+                      {
+                        question: "S2 Subjects",
+                        answer: "s2"
+                      },
+                      {
+                        question: "S3 Subjects",
+                        answer: "s3"
+                      },
+                      {
+                        question: "S4 Subjects",
+                        answer: "s4"
+                      },
+                      {
+                        question: "Start Over",
+                        answer: "ice"
+                      },
+
+                      {
+                        question: "End Chat",
+                        answer: "end"
+                      }
+
+                    ]
+                  },
+                  elective: {
+                    says: ["please select the electives"],
+                    reply: [
+                      {
+                        question: "Elective 1",
+                        answer: "e1"
+                      },
+                      {
+                        question: "Elective 2",
+                        answer: "e2"
+                      }
+                    ]
+                  },
+                  e1: {
+                    says: ["Artificial Intelligence",
+                      "Enterprise Resource Planning",
+                      "Computer Graphics And Multimedia",
+                      "Digital Image Processing"],
+                    reply: [
+                      {
+                        question: "Elective 1",
+                        answer: "e1"
+                      },
+                      {
+                        question: "Elective 2",
+                        answer: "e2"
+                      },
+                      {
+                        question: "Start Over",
+                        answer: "ice"
+                      },
+                      {
+                        question: "End Chat",
+                        answer: "end"
+                      }
+                    ]
+                  },
+                  e2: {
+                    says: ["Cloud computing",
+                      "Cryptography and Network Security",
+                      "3 Business Management And Information System",
+                      "Internet of Things ( IoT)"],
+                    reply: [
+                      {
+                        question: "Elective 1",
+                        answer: "e1"
+                      },
+                      {
+                        question: "Elective 2",
+                        answer: "e2"
+                      },
+                      {
+                        question: "Start Over",
+                        answer: "ice"
+                      },
+                      {
+                        question: "End Chat",
+                        answer: "end"
+                      }
+                    ]
+                  },
+                }
+
+                // pass JSON to your function and you're done!
+                chatWindow.talk(convo)
+              </script>
+            </div>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="wrap">
+
+    <div class="copy_right">
+      <div class="wrap">
+        <p> © 2021 All Rights Reseverd </p>
+      </div>
+    </div>
+    <!------------ scroll Top ------------>
+    <script type="text/javascript">
+      $(document).ready(function () {
+        $().UItoTop({ easingType: 'easeOutQuart' });
+      });
+    </script>
+    <a href="#" id="toTop"><span id="toTopHover"> </span></a>
+    <!------------ End scroll Top ------------>
+  </div>
+</body>
+
+</html>
+
+
+
+
+</head>
+
+<body>
+
+
+</body>
