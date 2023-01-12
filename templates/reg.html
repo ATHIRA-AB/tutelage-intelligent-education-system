@@ -1,0 +1,12 @@
+<html>
+<body>
+<h2><font size="6" color="Black">Registration</font><h2><br>
+    <form  method = "post" action="/regaction/">
+        {% csrf_token %}
+    <input class="form-input"  name="name" placeholder="Name" required="required"><br><br>
+    <input class="form-input" name="mailid" placeholder="E Mail Id" required="required"><br><br>
+    <input class="form-input" name="password" placeholder="Password" required="required"><br><br>
+    <input type="submit" value="submit">
+    </form>
+    </body>
+    </html>
